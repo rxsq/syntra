@@ -37,7 +37,7 @@ stop
 status
 ```
 
-The test uses GPIO18, 50 Hz PWM, 14-bit resolution, and a conservative 30–150° position window. The 500–2500 µs pulse-width mapping matches the MG90S packaging you reported; verify actual safe travel before installing linkages.
+The test uses GPIO32, 50 Hz PWM, 14-bit resolution, and a conservative 30–150° position window. The 500–2500 µs pulse-width mapping matches the MG90S packaging you reported; verify actual safe travel before installing linkages.
 
 `move 120 500` interpolates commanded positions over 500 ms; it cannot increase the servo's physical maximum speed.
 
@@ -45,7 +45,7 @@ The test uses GPIO18, 50 Hz PWM, 14-bit resolution, and a conservative 30–150�
 
 | MG90S wire | Connection |
 |---|---|
-| Orange (signal) | ESP32 GPIO18 |
+| Orange (signal) | ESP32 GPIO32 |
 | Red (+) | External regulated ~5V buck converter output |
 | Brown (ground) | External 5V supply ground |
 | ESP32 GND | Same supply ground |

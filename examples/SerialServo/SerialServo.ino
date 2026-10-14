@@ -1,8 +1,8 @@
 #include <Arduino.h>
 #include <Syntra.h>
 
-// DOIT ESP32 DevKit V1: GPIO18 supports PWM. GPIO34-39 are input-only.
-constexpr uint8_t SERVO_PIN = 18;
+// DOIT ESP32 DevKit V1: GPIO32 supports PWM. GPIO34-39 are input-only.
+constexpr uint8_t SERVO_PIN = 32;
 
 // Unmounted MG90S bench test. Keep the horn clear and do not force travel.
 syntra::LedcServoDriver output(SERVO_PIN);
