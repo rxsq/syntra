@@ -14,14 +14,40 @@
 
 ## Project layout
 
-- `src/SyntraServo.*`: servo movement and limit management
-- `src/SyntraLedcDriver.*`: ESP32 LEDC PWM output
-- `examples/SerialServo/SerialServo.ino`: interactive bench test
+- `library/src/SyntraServo.*`: servo movement and limit management
+- `library/src/SyntraLedcDriver.*`: ESP32 LEDC PWM output
+- `library/examples/SerialServo/SerialServo.ino`: interactive bench test
+- `library/library.properties`: Arduino library metadata
+
+The self-contained Arduino library lives entirely under `library/`, allowing other repository directories to be added later.
+
+## Live Arduino IDE development on Windows (recommended)
+
+Clone this repository somewhere outside the Arduino library directory. With Arduino IDE closed, open PowerShell and create a directory junction from the Arduino sketchbook's `libraries/Syntra` folder to the clone's `library` folder.
+
+Example — **replace both paths** with your actual directories:
+
+```powershell
+$source = "C:\dev\syntra\library"
+$target = "$HOME\Documents\Arduino\libraries\Syntra"
+
+# Target must not already exist. Check your Sketchbook location in Arduino IDE Preferences.
+if (-not (Test-Path -LiteralPath $source -PathType Container)) { throw "Syntra library source not found: $source" }
+if (Test-Path -LiteralPath $target) { throw "Target already exists: $target" }
+New-Item -ItemType Directory -Force -Path (Split-Path $target) | Out-Null
+New-Item -ItemType Junction -Path $target -Target $source
+```
+
+The junction makes Arduino IDE discover the Git-tracked library directly. Update the Git checkout with `git pull`; no reinstallation is needed. Restart Arduino IDE after creating the junction. The sketchbook folder may be somewhere other than Documents, including under OneDrive; check **File → Preferences → Sketchbook location**.
+
+To **unlink** later, remove the junction itself (not the source checkout). Never delete the files in the linked source folder.
+
+**Do not install the whole repository ZIP as an Arduino library** after this layout change: the Arduino library root is `library/`, not the repository root.
 
 ## Quick start (Arduino IDE)
 
 1. Install **esp32 by Espressif Systems**, version **3.x**.
-2. Clone this repository into your Arduino sketchbook's `libraries/Syntra` directory, or install it as a ZIP library.
+2. Clone this repository and create a junction from your Arduino sketchbook's `libraries/Syntra` directory to the repository's `library/` directory (see below).
 3. Open **File → Examples → Syntra → SerialServo**.
 4. Select your DOIT ESP32 DevKit V1 board, then upload.
 5. Open Serial Monitor at **115200 baud** with newline enabled.
